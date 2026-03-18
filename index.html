@@ -5,15 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projeto Navegar — Checklist CGE</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
-
-<!-- JSONBin config — edite apenas estas duas linhas -->
-<script>
-  const JSONBIN_ID  = "69bab524c3097a1dd537e819";
-  const JSONBIN_KEY = "$2a$10$.cckzTmpS2VzRqFVsV1pRuzuUGF.wbHdo1zbQdWIuFBHNAtW000z2 
-
-";
-</script>
-
 <style>
   :root {
     --navy:       #0f1e3c;
@@ -33,7 +24,6 @@
   *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; }
 
-  /* ── HEADER ── */
   header { background:var(--navy); padding:2.5rem 2rem 2rem; position:relative; overflow:hidden; }
   header::before { content:''; position:absolute; top:-60px; right:-60px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle,rgba(13,148,136,.35) 0%,transparent 70%); }
   header::after  { content:''; position:absolute; bottom:-40px; left:30%; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%); }
@@ -49,22 +39,19 @@
   .stat-num.gold { color:var(--gold); }
   .stat-label    { font-size:.68rem; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.08em; margin-top:.2rem; }
 
-  /* ── SYNC BAR ── */
   .sync-bar   { max-width:1200px; margin:0 auto; padding:.55rem 2rem 0; display:flex; align-items:center; gap:.5rem; }
   .sync-dot   { width:8px; height:8px; border-radius:50%; background:var(--muted); transition:background .3s; flex-shrink:0; }
   .sync-dot.synced  { background:#10b981; }
   .sync-dot.syncing { background:var(--gold); animation:pulse 1s infinite; }
   .sync-dot.error   { background:#ef4444; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .sync-text  { font-size:.72rem; color:var(--muted); }
+  .sync-text { font-size:.72rem; color:var(--muted); }
 
-  /* ── PROGRESS ── */
   .progress-wrap  { max-width:1200px; margin:0 auto; padding:1rem 2rem 0; }
   .progress-track { background:rgba(15,30,60,.08); border-radius:99px; height:8px; overflow:hidden; }
   .progress-fill  { height:100%; background:linear-gradient(90deg,var(--teal),var(--teal-light)); border-radius:99px; transition:width .5s cubic-bezier(.4,0,.2,1); }
   .progress-label { display:flex; justify-content:space-between; font-size:.75rem; color:var(--muted); margin-top:.4rem; font-weight:500; }
 
-  /* ── TOOLBAR ── */
   .toolbar { max-width:1200px; margin:1.25rem auto 0; padding:0 2rem; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; }
   .filter-btn { font-family:'DM Sans',sans-serif; font-size:.78rem; font-weight:500; padding:.38rem .9rem; border-radius:99px; border:1.5px solid rgba(15,30,60,.18); background:var(--white); color:var(--muted); cursor:pointer; transition:all .2s; }
   .filter-btn:hover  { border-color:var(--teal); color:var(--teal); }
@@ -73,10 +60,8 @@
   .btn-reset { font-family:'DM Sans',sans-serif; font-size:.78rem; padding:.38rem .9rem; border-radius:99px; border:1.5px solid rgba(239,68,68,.3); background:transparent; color:#ef4444; cursor:pointer; transition:all .2s; }
   .btn-reset:hover { background:#fef2f2; }
 
-  /* ── MAIN ── */
   main { max-width:1200px; margin:1.25rem auto 0; padding:0 2rem; }
 
-  /* ── PHASE GROUP ── */
   .phase-group   { margin-bottom:1.75rem; }
   .phase-header  { display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem; cursor:pointer; user-select:none; }
   .phase-dot     { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
@@ -86,30 +71,17 @@
   .phase-group.collapsed .phase-chevron { transform:rotate(-90deg); }
   .phase-group.collapsed .task-list     { display:none; }
 
-  /* ── COLUMN HEADER ── */
   .col-header {
     display:grid;
     grid-template-columns: 22px 38px 1fr 90px 90px 90px 90px;
     gap:.6rem;
-    padding:.3rem 1rem .3rem 1rem;
+    padding:.3rem 1rem;
     margin-bottom:.2rem;
   }
-  .col-lbl {
-    font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--muted);
-    text-align:center;
-  }
-  .col-lbl.left { text-align:left; }
-  .col-group { grid-column:span 2; display:flex; flex-direction:column; align-items:center; gap:.1rem; }
-  .col-group-title { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; padding:.1rem .5rem; border-radius:4px; }
-  .col-group-title.previsto  { background:#e0f2fe; color:#0369a1; }
-  .col-group-title.realizado { background:#dcfce7; color:#166534; }
-  .col-group-subs { display:flex; gap:.6rem; width:100%; justify-content:center; }
-  .col-group-subs span { font-size:.6rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; width:90px; text-align:center; }
+  .col-lbl { font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); text-align:center; }
 
-  /* ── TASK LIST ── */
   .task-list { display:flex; flex-direction:column; gap:.35rem; }
 
-  /* ── TASK ITEM ── */
   .task-item {
     background:var(--white);
     border:1.5px solid rgba(15,30,60,.08);
@@ -132,7 +104,6 @@
   .task-item.done .task-name { text-decoration:line-through; color:var(--muted); }
   .task-item.hidden  { display:none; }
 
-  /* checkbox */
   .task-check { width:20px; height:20px; border:2px solid rgba(15,30,60,.2); border-radius:5px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; background:var(--white); flex-shrink:0; }
   .task-item.done .task-check { background:var(--done-bdr); border-color:var(--done-bdr); }
   .task-check svg { display:none; }
@@ -141,7 +112,6 @@
   .task-id   { font-size:.68rem; font-weight:600; color:var(--muted); background:var(--cream-dark); padding:.1rem .4rem; border-radius:4px; text-align:center; letter-spacing:.04em; white-space:nowrap; }
   .task-name { font-size:.85rem; color:var(--text); line-height:1.35; }
 
-  /* date inputs */
   .date-input {
     font-family:'DM Sans',sans-serif; font-size:.74rem; font-weight:500;
     color:var(--text); border-radius:6px; padding:.22rem .4rem;
@@ -154,14 +124,12 @@
   .date-input:focus { border-color:var(--teal); background:var(--white); box-shadow:0 0 0 3px rgba(13,148,136,.13); }
   .task-item.done .date-input { color:var(--muted); }
 
-  /* ── PHASE COLORS ── */
   .dot-plan { background:#6366f1; }
   .dot-prep { background:#f59e0b; }
   .dot-exec { background:#0d9488; }
   .dot-vali { background:#ec4899; }
   .dot-ence { background:#64748b; }
 
-  /* ── REPORT SECTION ── */
   .report-section { max-width:1200px; margin:2rem auto 3rem; padding:0 2rem; }
   .report-card { background:var(--white); border:1.5px solid rgba(15,30,60,.08); border-radius:12px; padding:1.75rem 2rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; box-shadow:var(--shadow); flex-wrap:wrap; }
   .report-info h3 { font-family:'DM Serif Display',serif; font-size:1.15rem; color:var(--navy); margin-bottom:.3rem; }
@@ -175,15 +143,11 @@
     box-shadow:0 4px 14px rgba(15,30,60,.25);
   }
   .btn-report:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(15,30,60,.35); }
-  .btn-report:active { transform:translateY(0); }
   .btn-report.loading { opacity:.7; pointer-events:none; }
-  .btn-report svg { flex-shrink:0; }
 
-  /* toast */
   .toast { position:fixed; bottom:1.5rem; right:1.5rem; background:var(--navy); color:var(--white); font-size:.8rem; padding:.6rem 1.1rem; border-radius:8px; opacity:0; transform:translateY(8px); transition:all .3s; pointer-events:none; z-index:999; }
   .toast.show { opacity:1; transform:translateY(0); }
 
-  /* loading overlay */
   .loading-overlay { position:fixed; inset:0; background:rgba(15,30,60,.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; z-index:1000; transition:opacity .4s; }
   .loading-overlay.hidden { opacity:0; pointer-events:none; }
   .spinner { width:40px; height:40px; border:3px solid rgba(255,255,255,.2); border-top-color:var(--teal-light); border-radius:50%; animation:spin .8s linear infinite; }
@@ -195,7 +159,7 @@
 
   @media (max-width:900px) {
     .task-item, .col-header { grid-template-columns: 22px 34px 1fr; }
-    .task-item .date-input, .col-group, .col-lbl:nth-child(n+4) { display:none; }
+    .task-item .date-input, .col-lbl:nth-child(n+4) { display:none; }
     header,.progress-wrap,.toolbar,main,.report-section { padding-left:1rem; padding-right:1rem; }
   }
 </style>
@@ -247,7 +211,6 @@
 
 <main id="main-content"></main>
 
-<!-- ── RELATÓRIO ── -->
 <div class="report-section">
   <div class="report-card">
     <div class="report-info">
@@ -266,14 +229,14 @@
 <footer><strong>Projeto Navegar</strong> · CGE/GO · Dados sincronizados via JSONBin.io</footer>
 <div class="toast" id="toast"></div>
 
-<!-- docx.js via CDN -->
 <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
-
 <script>
-// ─────────────────────────────────────────
-//  DADOS PADRÃO
-// ─────────────────────────────────────────
-const DEFAULTS = [
+var JSONBIN_ID  = "69bab524c3097a1dd537e819";
+var JSONBIN_KEY = "$2a$10$.cckzTmpS2VzRqFVsV1pRuzuUGF.wbHdo1zbQdWIuFBHNAtW000z2";
+var API_URL     = "https://api.jsonbin.io/v3/b/" + JSONBIN_ID;
+var HEADERS     = { "Content-Type":"application/json", "X-Master-Key":JSONBIN_KEY, "X-Bin-Versioning":"false" };
+
+var DEFAULTS = [
   {id:1, fase:"Planejamento", atividade:"Revisar escopo institucional do Projeto Navegar", iprev:"02/01/2026", tprev:"03/01/2026"},
   {id:2, fase:"Planejamento", atividade:"Identificar stakeholders institucionais", iprev:"04/01/2026", tprev:"05/01/2026"},
   {id:3, fase:"Planejamento", atividade:"Elaborar matriz de stakeholders", iprev:"06/01/2026", tprev:"07/01/2026"},
@@ -321,133 +284,106 @@ const DEFAULTS = [
   {id:45,fase:"Encerramento", atividade:"Registrar lições aprendidas do projeto", iprev:"06/12/2026", tprev:"10/12/2026"},
   {id:46,fase:"Encerramento", atividade:"Elaborar relatório final do projeto", iprev:"11/12/2026", tprev:"15/12/2026"},
   {id:47,fase:"Encerramento", atividade:"Apresentar resultados do projeto à CGE", iprev:"16/12/2026", tprev:"01/01/2027"},
-  {id:48,fase:"Encerramento", atividade:"Formalizar encerramento institucional do projeto", iprev:"19/12/2026", tprev:"20/12/2026"},
+  {id:48,fase:"Encerramento", atividade:"Formalizar encerramento institucional do projeto", iprev:"19/12/2026", tprev:"20/12/2026"}
 ];
 
-const PHASES    = ["Planejamento","Preparação","Execução","Validação","Encerramento"];
-const PHASE_DOT = { Planejamento:"dot-plan", Preparação:"dot-prep", Execução:"dot-exec", Validação:"dot-vali", Encerramento:"dot-ence" };
-const DATE_FIELDS = ['iprev','tprev','ireal','treal'];
+var PHASES    = ["Planejamento","Preparação","Execução","Validação","Encerramento"];
+var PHASE_DOT = { "Planejamento":"dot-plan", "Preparação":"dot-prep", "Execução":"dot-exec", "Validação":"dot-vali", "Encerramento":"dot-ence" };
 
-// ─────────────────────────────────────────
-//  JSONBIN
-// ─────────────────────────────────────────
-const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
-const HEADERS  = { "Content-Type":"application/json", "X-Master-Key":JSONBIN_KEY, "X-Bin-Versioning":"false" };
+var remoteData    = { tasks:{} };
+var currentFilter = "all";
+var saveTimer     = null;
+var pollTimer     = null;
+var lastSaveTime  = 0;
 
-let remoteData = { tasks:{} };
-let currentFilter = 'all';
-let saveTimer = null, pollTimer = null, lastSaveTime = 0;
-const configured = JSONBIN_ID !== "SEU_BIN_ID" && JSONBIN_KEY !== "SUA_MASTER_KEY";
-
-async function fetchRemote() {
-  const r = await fetch(API_URL+'/latest', { headers: HEADERS });
-  if (!r.ok) throw new Error(r.status);
-  return (await r.json()).record;
+function fetchRemote() {
+  return fetch(API_URL + "/latest", { headers: HEADERS })
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(j){ return j.record; });
 }
-async function saveRemote(data) {
-  const r = await fetch(API_URL, { method:'PUT', headers: HEADERS, body:JSON.stringify(data) });
-  if (!r.ok) throw new Error(r.status);
+
+function saveRemote(data) {
+  return fetch(API_URL, { method:"PUT", headers:HEADERS, body:JSON.stringify(data) })
+    .then(function(r){ if(!r.ok) throw new Error(r.status); });
 }
+
 function startPolling() {
-  pollTimer = setInterval(async () => {
-    if (Date.now()-lastSaveTime < 4000) return;
-    try { remoteData = await fetchRemote(); refreshUI(); } catch(e){}
+  pollTimer = setInterval(function(){
+    if(Date.now() - lastSaveTime < 4000) return;
+    fetchRemote().then(function(fresh){ remoteData = fresh; refreshUI(); }).catch(function(){});
   }, 10000);
 }
 
-async function init() {
-  if (!configured) {
-    const local = localStorage.getItem('navegar_local');
-    remoteData  = local ? JSON.parse(local) : { tasks:{} };
-    setSyncStatus('error','Modo offline — configure JSONBin para sincronizar');
-    hideLoading(); renderAll(); return;
-  }
-  setSyncStatus('syncing','Carregando...');
-  try {
-    remoteData = await fetchRemote();
-    setSyncStatus('synced','Sincronizado');
-  } catch(e) {
-    setSyncStatus('error','Erro ao conectar');
-    showToast('❌ Erro ao carregar dados.');
-  }
-  hideLoading(); renderAll(); startPolling();
+function init() {
+  setSyncStatus("syncing","Carregando...");
+  fetchRemote().then(function(data){
+    remoteData = data;
+    setSyncStatus("synced","Sincronizado");
+    hideLoading();
+    renderAll();
+    startPolling();
+  }).catch(function(e){
+    setSyncStatus("error","Erro ao conectar: " + e.message);
+    showToast("Erro ao carregar dados.");
+    hideLoading();
+    renderAll();
+  });
 }
 
 function scheduleSave() {
   clearTimeout(saveTimer);
-  setSyncStatus('syncing','Salvando...');
-  saveTimer = setTimeout(async () => {
-    if (!configured) {
-      localStorage.setItem('navegar_local', JSON.stringify(remoteData));
-      setSyncStatus('error','Modo offline — configure JSONBin');
-      return;
-    }
-    try {
-      lastSaveTime = Date.now();
-      await saveRemote(remoteData);
-      setSyncStatus('synced','Salvo · '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}));
-    } catch(e) {
-      setSyncStatus('error','Erro ao salvar');
-      showToast('❌ Erro ao salvar.');
-    }
+  setSyncStatus("syncing","Salvando...");
+  saveTimer = setTimeout(function(){
+    lastSaveTime = Date.now();
+    saveRemote(remoteData).then(function(){
+      setSyncStatus("synced","Salvo · " + new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}));
+    }).catch(function(){
+      setSyncStatus("error","Erro ao salvar");
+      showToast("Erro ao salvar.");
+    });
   }, 800);
 }
 
-// ─────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────
 function getF(id, field) {
-  const def = DEFAULTS.find(t=>t.id===id);
-  const val  = remoteData.tasks?.[id]?.[field];
-  if (val !== undefined) return val;
-  return def[field] ?? '';
+  var def = DEFAULTS.find(function(t){ return t.id === id; });
+  var s   = remoteData.tasks && remoteData.tasks[id];
+  if(s && s[field] !== undefined) return s[field];
+  return def[field] || "";
 }
 function setF(id, field, value) {
-  if (!remoteData.tasks) remoteData.tasks = {};
-  if (!remoteData.tasks[id]) remoteData.tasks[id] = {};
+  if(!remoteData.tasks) remoteData.tasks = {};
+  if(!remoteData.tasks[id]) remoteData.tasks[id] = {};
   remoteData.tasks[id][field] = value;
 }
 
-// ─────────────────────────────────────────
-//  RENDER
-// ─────────────────────────────────────────
 function renderAll() {
-  const main = document.getElementById('main-content');
-  main.innerHTML = '';
-  PHASES.forEach(phase => {
-    const tasks = DEFAULTS.filter(t=>t.fase===phase);
-    const group = document.createElement('div');
-    group.className   = 'phase-group';
+  var main = document.getElementById("main-content");
+  main.innerHTML = "";
+  PHASES.forEach(function(phase){
+    var tasks = DEFAULTS.filter(function(t){ return t.fase === phase; });
+    var group = document.createElement("div");
+    group.className    = "phase-group";
     group.dataset.phase = phase;
 
-    // header
-    const hdr = document.createElement('div');
-    hdr.className = 'phase-header';
-    hdr.innerHTML = `
-      <span class="phase-dot ${PHASE_DOT[phase]}"></span>
-      <span class="phase-title">${phase}</span>
-      <span class="phase-count">${tasks.length} atividades</span>
-      <span class="phase-chevron">▾</span>`;
-    hdr.addEventListener('click', ()=> group.classList.toggle('collapsed'));
+    var hdr = document.createElement("div");
+    hdr.className = "phase-header";
+    hdr.innerHTML = '<span class="phase-dot ' + PHASE_DOT[phase] + '"></span>' +
+      '<span class="phase-title">' + phase + '</span>' +
+      '<span class="phase-count">' + tasks.length + ' atividades</span>' +
+      '<span class="phase-chevron">▾</span>';
+    hdr.addEventListener("click", function(){ group.classList.toggle("collapsed"); });
 
-    // col headers
-    const colHdr = document.createElement('div');
-    colHdr.className = 'col-header';
-    colHdr.innerHTML = `
-      <span></span><span></span>
-      <span class="col-lbl left">Atividade</span>
-      <span class="col-lbl" style="grid-column:span 2">
-        <span style="display:block;font-size:.58rem;background:#e0f2fe;color:#0369a1;border-radius:4px;padding:.1rem .4rem;margin-bottom:.2rem">PREVISTO</span>
-        <span style="display:flex;gap:.6rem;justify-content:center"><span style="width:90px">Início</span><span style="width:90px">Fim</span></span>
-      </span>
-      <span class="col-lbl" style="grid-column:span 2">
-        <span style="display:block;font-size:.58rem;background:#dcfce7;color:#166534;border-radius:4px;padding:.1rem .4rem;margin-bottom:.2rem">REALIZADO</span>
-        <span style="display:flex;gap:.6rem;justify-content:center"><span style="width:90px">Início</span><span style="width:90px">Fim</span></span>
-      </span>`;
+    var colHdr = document.createElement("div");
+    colHdr.className = "col-header";
+    colHdr.innerHTML =
+      "<span></span><span></span>" +
+      '<span class="col-lbl" style="text-align:left">Atividade</span>' +
+      '<span class="col-lbl" style="grid-column:span 2;background:#e0f2fe;border-radius:4px;color:#0369a1;font-size:.6rem">PREVISTO<br><span style="font-weight:400;font-size:.58rem">Início &nbsp;&nbsp;&nbsp;&nbsp; Fim</span></span>' +
+      '<span class="col-lbl" style="grid-column:span 2;background:#dcfce7;border-radius:4px;color:#166534;font-size:.6rem">REALIZADO<br><span style="font-weight:400;font-size:.58rem">Início &nbsp;&nbsp;&nbsp;&nbsp; Fim</span></span>';
 
-    const list = document.createElement('div');
-    list.className = 'task-list';
-    tasks.forEach(def => list.appendChild(buildItem(def)));
+    var list = document.createElement("div");
+    list.className = "task-list";
+    tasks.forEach(function(def){ list.appendChild(buildItem(def)); });
 
     group.appendChild(hdr);
     group.appendChild(colHdr);
@@ -459,353 +395,308 @@ function renderAll() {
 }
 
 function buildItem(def) {
-  const done = !!remoteData.tasks?.[def.id]?.done;
-  const item = document.createElement('div');
-  item.className    = 'task-item'+(done?' done':'');
-  item.dataset.id   = def.id;
-  item.dataset.fase = def.fase;
+  var done = !!(remoteData.tasks && remoteData.tasks[def.id] && remoteData.tasks[def.id].done);
+  var item = document.createElement("div");
+  item.className     = "task-item" + (done ? " done" : "");
+  item.dataset.id    = def.id;
+  item.dataset.fase  = def.fase;
 
-  // checkbox
-  const chk = document.createElement('div');
-  chk.className = 'task-check';
-  chk.innerHTML = `<svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  chk.addEventListener('click', e=>{ e.stopPropagation(); toggleDone(def.id,item); });
+  var chk = document.createElement("div");
+  chk.className = "task-check";
+  chk.innerHTML = '<svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  (function(d, el){ chk.addEventListener("click", function(e){ e.stopPropagation(); toggleDone(d, el); }); })(def.id, item);
 
-  const idEl = document.createElement('span');
-  idEl.className   = 'task-id';
-  idEl.textContent = '#'+String(def.id).padStart(2,'0');
+  var idEl = document.createElement("span");
+  idEl.className   = "task-id";
+  idEl.textContent = "#" + String(def.id).padStart(2,"0");
 
-  const nameEl = document.createElement('span');
-  nameEl.className   = 'task-name';
+  var nameEl = document.createElement("span");
+  nameEl.className   = "task-name";
   nameEl.textContent = def.atividade;
-
-  // 4 date inputs: iprev, tprev, ireal, treal
-  const fieldDefs = [
-    { key:'iprev', cls:'previsto',  ph:'dd/mm/aaaa' },
-    { key:'tprev', cls:'previsto',  ph:'dd/mm/aaaa' },
-    { key:'ireal', cls:'realizado', ph:'dd/mm/aaaa' },
-    { key:'treal', cls:'realizado', ph:'dd/mm/aaaa' },
-  ];
-  const inputs = fieldDefs.map(fd => {
-    const inp = document.createElement('input');
-    inp.type        = 'text';
-    inp.className   = `date-input ${fd.cls}`;
-    inp.placeholder = fd.ph;
-    inp.value       = getF(def.id, fd.key);
-    inp.addEventListener('click',     e=>e.stopPropagation());
-    inp.addEventListener('mousedown', e=>e.stopPropagation());
-    inp.addEventListener('change', e=>{
-      e.stopPropagation();
-      setF(def.id, fd.key, inp.value);
-      scheduleSave();
-      showToast('📅 Data atualizada');
-    });
-    inp.addEventListener('keydown', e=>{
-      if(e.key==='Enter')  inp.blur();
-      if(e.key==='Escape'){ inp.value=getF(def.id,fd.key); inp.blur(); }
-    });
-    return inp;
-  });
 
   item.appendChild(chk);
   item.appendChild(idEl);
   item.appendChild(nameEl);
-  inputs.forEach(i=>item.appendChild(i));
+
+  var fieldDefs = [
+    { key:"iprev", cls:"previsto" },
+    { key:"tprev", cls:"previsto" },
+    { key:"ireal", cls:"realizado" },
+    { key:"treal", cls:"realizado" }
+  ];
+  fieldDefs.forEach(function(fd){
+    var inp = document.createElement("input");
+    inp.type        = "text";
+    inp.className   = "date-input " + fd.cls;
+    inp.placeholder = "dd/mm/aaaa";
+    inp.value       = getF(def.id, fd.key);
+    inp.addEventListener("click",     function(e){ e.stopPropagation(); });
+    inp.addEventListener("mousedown", function(e){ e.stopPropagation(); });
+    (function(d, f, i){
+      i.addEventListener("change", function(e){
+        e.stopPropagation();
+        setF(d, f, i.value);
+        scheduleSave();
+        showToast("Data atualizada");
+      });
+      i.addEventListener("keydown", function(e){
+        if(e.key==="Enter")  i.blur();
+        if(e.key==="Escape"){ i.value = getF(d,f); i.blur(); }
+      });
+    })(def.id, fd.key, inp);
+    item.appendChild(inp);
+  });
   return item;
 }
 
 function toggleDone(id, item) {
-  const cur = !!remoteData.tasks?.[id]?.done;
-  setF(id,'done',!cur);
-  item.classList.toggle('done',!cur);
-  updateStats(); scheduleSave();
-  showToast(!cur ? '✓ Atividade concluída' : 'Atividade desmarcada');
+  var cur = !!(remoteData.tasks && remoteData.tasks[id] && remoteData.tasks[id].done);
+  setF(id, "done", !cur);
+  item.classList.toggle("done", !cur);
+  updateStats();
+  scheduleSave();
+  showToast(!cur ? "✓ Atividade concluída" : "Atividade desmarcada");
 }
 
 function refreshUI() {
-  DEFAULTS.forEach(def=>{
-    const item = document.querySelector(`.task-item[data-id="${def.id}"]`);
+  DEFAULTS.forEach(function(def){
+    var item = document.querySelector(".task-item[data-id='" + def.id + "']");
     if(!item) return;
-    item.classList.toggle('done',!!remoteData.tasks?.[def.id]?.done);
-    const inputs = item.querySelectorAll('.date-input');
-    const keys   = ['iprev','tprev','ireal','treal'];
-    inputs.forEach((inp,i)=>{ if(document.activeElement!==inp) inp.value=getF(def.id,keys[i]); });
+    var done = !!(remoteData.tasks && remoteData.tasks[def.id] && remoteData.tasks[def.id].done);
+    item.classList.toggle("done", done);
+    var inputs = item.querySelectorAll(".date-input");
+    var keys   = ["iprev","tprev","ireal","treal"];
+    inputs.forEach(function(inp, i){
+      if(document.activeElement !== inp) inp.value = getF(def.id, keys[i]);
+    });
   });
   updateStats();
 }
 
 function updateStats() {
-  const done  = DEFAULTS.filter(t=>remoteData.tasks?.[t.id]?.done).length;
-  const total = DEFAULTS.length;
-  const pct   = Math.round(done/total*100);
-  document.getElementById('stat-done').textContent        = done;
-  document.getElementById('stat-pct').textContent         = pct+'%';
-  document.getElementById('progress-fill').style.width    = pct+'%';
-  document.getElementById('prog-left').textContent        = `${done} de ${total} atividades concluídas`;
-  document.getElementById('prog-right').textContent       = pct+'%';
+  var done  = DEFAULTS.filter(function(t){ return remoteData.tasks && remoteData.tasks[t.id] && remoteData.tasks[t.id].done; }).length;
+  var total = DEFAULTS.length;
+  var pct   = Math.round(done/total*100);
+  document.getElementById("stat-done").textContent        = done;
+  document.getElementById("stat-pct").textContent         = pct + "%";
+  document.getElementById("progress-fill").style.width    = pct + "%";
+  document.getElementById("prog-left").textContent        = done + " de " + total + " atividades concluídas";
+  document.getElementById("prog-right").textContent       = pct + "%";
 }
 
-function applyFilter(filter, persist=true) {
-  if(persist) currentFilter=filter;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));
-  document.querySelectorAll('.phase-group').forEach(g=>{
-    g.style.display=(filter==='all'||g.dataset.phase===filter)?'':'none';
+function applyFilter(filter, persist) {
+  if(persist !== false) currentFilter = filter;
+  document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.toggle("active", b.dataset.filter === filter); });
+  document.querySelectorAll(".phase-group").forEach(function(g){
+    g.style.display = (filter === "all" || g.dataset.phase === filter) ? "" : "none";
   });
 }
 
-// ─────────────────────────────────────────
-//  STATUS / TOAST / LOADING
-// ─────────────────────────────────────────
-function setSyncStatus(state,text){
-  document.getElementById('sync-dot').className='sync-dot '+state;
-  document.getElementById('sync-text').textContent=text;
-}
-let toastT;
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2000);
-}
-function hideLoading(){
-  const el=document.getElementById('loading');
-  el.classList.add('hidden'); setTimeout(()=>el.style.display='none',400);
+function setSyncStatus(state, text) {
+  document.getElementById("sync-dot").className  = "sync-dot " + state;
+  document.getElementById("sync-text").textContent = text;
 }
 
-// ─────────────────────────────────────────
-//  GERAR RELATÓRIO DOCX
-// ─────────────────────────────────────────
-document.getElementById('btn-report').addEventListener('click', async ()=>{
-  const btn = document.getElementById('btn-report');
-  btn.classList.add('loading');
-  btn.querySelector('svg').style.animation='spin .8s linear infinite';
-  showToast('⏳ Gerando relatório...');
+var toastT;
+function showToast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT);
+  toastT = setTimeout(function(){ t.classList.remove("show"); }, 2000);
+}
+
+function hideLoading() {
+  var el = document.getElementById("loading");
+  el.classList.add("hidden");
+  setTimeout(function(){ el.style.display = "none"; }, 400);
+}
+
+document.querySelectorAll(".filter-btn").forEach(function(btn){
+  btn.addEventListener("click", function(){ applyFilter(btn.dataset.filter); });
+});
+
+document.getElementById("btn-reset").addEventListener("click", function(){
+  if(!confirm("Resetar todo o progresso e datas?\nIsso afetará todos os usuários.")) return;
+  remoteData = { tasks:{} };
+  scheduleSave();
+  renderAll();
+  showToast("Checklist resetado");
+});
+
+// ── GERAR DOCX ──
+document.getElementById("btn-report").addEventListener("click", function(){
+  var btn = document.getElementById("btn-report");
+  btn.classList.add("loading");
+  showToast("Gerando relatório...");
 
   try {
-    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
-            HeadingLevel, AlignmentType, BorderStyle, WidthType, ShadingType,
-            VerticalAlign, PageNumber, PageBreak, Header, Footer, TabStopType, TabStopPosition } = docx;
+    var D = docx;
+    var done  = DEFAULTS.filter(function(t){ return remoteData.tasks && remoteData.tasks[t.id] && remoteData.tasks[t.id].done; }).length;
+    var total = DEFAULTS.length;
+    var pct   = Math.round(done/total*100);
+    var today = new Date().toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"});
 
-    const done  = DEFAULTS.filter(t=>remoteData.tasks?.[t.id]?.done).length;
-    const total = DEFAULTS.length;
-    const pct   = Math.round(done/total*100);
-    const today = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+    var NAVY="0F1E3C", TEAL="0D9488", WHITE="FFFFFF", LIGHT_BLUE="DBEAFE", LIGHT_GREEN="DCFCE7", LIGHT_GRAY="F8FAFC";
+    var b = {style:D.BorderStyle.SINGLE, size:1, color:"D1D5DB"};
+    var borders = {top:b,bottom:b,left:b,right:b,insideH:b,insideV:b};
 
-    const NAVY  = '0F1E3C';
-    const TEAL  = '0D9488';
-    const GOLD  = 'F59E0B';
-    const WHITE = 'FFFFFF';
-    const LIGHT_BLUE = 'DBEAFE';
-    const LIGHT_GREEN = 'DCFCE7';
-    const LIGHT_GRAY  = 'F8FAFC';
-    const MID_GRAY    = 'E2E8F0';
-
-    const border = { style:BorderStyle.SINGLE, size:1, color:'D1D5DB' };
-    const borders = { top:border, bottom:border, left:border, right:border, insideH:border, insideV:border };
-    const cell = (text, opts={}) => new TableCell({
-      borders,
-      width: opts.width ? { size:opts.width, type:WidthType.DXA } : undefined,
-      shading: opts.bg ? { fill:opts.bg, type:ShadingType.CLEAR } : undefined,
-      verticalAlign: VerticalAlign.CENTER,
-      margins:{ top:80, bottom:80, left:120, right:120 },
-      children:[new Paragraph({
-        alignment: opts.center ? AlignmentType.CENTER : AlignmentType.LEFT,
-        children:[new TextRun({
-          text: String(text||'—'),
-          size: opts.size||18,
-          bold: !!opts.bold,
-          color: opts.color||'1E293B',
-          font:'Arial',
+    function cell(text, opts) {
+      opts = opts || {};
+      return new D.TableCell({
+        borders: borders,
+        width: opts.width ? {size:opts.width, type:D.WidthType.DXA} : undefined,
+        shading: opts.bg ? {fill:opts.bg, type:D.ShadingType.CLEAR} : undefined,
+        verticalAlign: D.VerticalAlign.CENTER,
+        margins:{top:80,bottom:80,left:120,right:120},
+        children:[new D.Paragraph({
+          alignment: opts.center ? D.AlignmentType.CENTER : D.AlignmentType.LEFT,
+          children:[new D.TextRun({
+            text: String(text||"—"), size:opts.size||18,
+            bold:!!opts.bold, color:opts.color||"1E293B", font:"Arial"
+          })]
         })]
-      })]
-    });
+      });
+    }
 
-    // Resumo por fase
-    const phaseRows = PHASES.map(phase=>{
-      const tasks = DEFAULTS.filter(t=>t.fase===phase);
-      const doneP = tasks.filter(t=>remoteData.tasks?.[t.id]?.done).length;
-      const pctP  = Math.round(doneP/tasks.length*100);
-      return new TableRow({ children:[
-        cell(phase,         { width:2000, bold:true,  bg:LIGHT_GRAY }),
-        cell(tasks.length,  { width:900,  center:true }),
-        cell(doneP,         { width:900,  center:true, color:doneP===tasks.length?'059669':'1E293B' }),
-        cell(tasks.length-doneP, { width:900, center:true }),
-        cell(pctP+'%',      { width:900,  center:true, bold:true, color:pctP>=100?'059669':pctP>=50?'0369a1':'B45309' }),
+    var phaseRows = PHASES.map(function(phase){
+      var tasks = DEFAULTS.filter(function(t){ return t.fase===phase; });
+      var doneP = tasks.filter(function(t){ return remoteData.tasks && remoteData.tasks[t.id] && remoteData.tasks[t.id].done; }).length;
+      var pctP  = Math.round(doneP/tasks.length*100);
+      return new D.TableRow({ children:[
+        cell(phase,           {width:2000, bold:true,  bg:LIGHT_GRAY}),
+        cell(tasks.length,    {width:900,  center:true}),
+        cell(doneP,           {width:900,  center:true, color:doneP===tasks.length?"059669":"1E293B"}),
+        cell(tasks.length-doneP,{width:900,center:true}),
+        cell(pctP+"%",        {width:900,  center:true, bold:true, color:pctP>=100?"059669":pctP>=50?"0369a1":"B45309"}),
       ]});
     });
 
-    // Tabela de atividades por fase
-    const activityTables = [];
-    PHASES.forEach(phase=>{
-      const tasks = DEFAULTS.filter(t=>t.fase===phase);
+    var activityTables = [];
+    PHASES.forEach(function(phase){
+      var tasks = DEFAULTS.filter(function(t){ return t.fase===phase; });
       activityTables.push(
-        new Paragraph({ heading:HeadingLevel.HEADING_2,
-          children:[new TextRun({ text:phase, size:26, bold:true, font:'Arial', color:NAVY })] }),
-        new Paragraph({ children:[new TextRun({ text:'', size:4 })] }),
-        new Table({
-          width:{ size:9360, type:WidthType.DXA },
+        new D.Paragraph({ heading:D.HeadingLevel.HEADING_2,
+          children:[new D.TextRun({text:phase, size:26, bold:true, font:"Arial", color:NAVY})] }),
+        new D.Paragraph({ children:[new D.TextRun({text:"", size:4})] }),
+        new D.Table({
+          width:{size:9360, type:D.WidthType.DXA},
           columnWidths:[360,2900,1100,1100,1100,1100,600],
           rows:[
-            new TableRow({ tableHeader:true, children:[
-              cell('#',           { width:360,  bg:NAVY, bold:true, color:WHITE, center:true, size:16 }),
-              cell('Atividade',   { width:2900, bg:NAVY, bold:true, color:WHITE, size:16 }),
-              cell('Início Prev.',{ width:1100, bg:'1A3A6E', bold:true, color:WHITE, center:true, size:16 }),
-              cell('Fim Prev.',   { width:1100, bg:'1A3A6E', bold:true, color:WHITE, center:true, size:16 }),
-              cell('Início Real.',{ width:1100, bg:'065F46', bold:true, color:WHITE, center:true, size:16 }),
-              cell('Fim Real.',   { width:1100, bg:'065F46', bold:true, color:WHITE, center:true, size:16 }),
-              cell('Status',      { width:600,  bg:NAVY, bold:true, color:WHITE, center:true, size:16 }),
+            new D.TableRow({ tableHeader:true, children:[
+              cell("#",            {width:360,  bg:NAVY,     bold:true,color:WHITE,center:true,size:16}),
+              cell("Atividade",    {width:2900, bg:NAVY,     bold:true,color:WHITE,size:16}),
+              cell("Início Prev.", {width:1100, bg:"1A3A6E", bold:true,color:WHITE,center:true,size:16}),
+              cell("Fim Prev.",    {width:1100, bg:"1A3A6E", bold:true,color:WHITE,center:true,size:16}),
+              cell("Início Real.", {width:1100, bg:"065F46", bold:true,color:WHITE,center:true,size:16}),
+              cell("Fim Real.",    {width:1100, bg:"065F46", bold:true,color:WHITE,center:true,size:16}),
+              cell("Status",       {width:600,  bg:NAVY,     bold:true,color:WHITE,center:true,size:16}),
             ]}),
-            ...tasks.map((t,i)=>{
-              const isDone = !!remoteData.tasks?.[t.id]?.done;
-              const rowBg  = i%2===0 ? WHITE : LIGHT_GRAY;
-              return new TableRow({ children:[
-                cell('#'+String(t.id).padStart(2,'0'), { width:360,  bg:rowBg, center:true, size:16, color:'64748B' }),
-                cell(t.atividade,                      { width:2900, bg:rowBg, size:17 }),
-                cell(getF(t.id,'iprev'),               { width:1100, bg:LIGHT_BLUE, center:true, size:16 }),
-                cell(getF(t.id,'tprev'),               { width:1100, bg:LIGHT_BLUE, center:true, size:16 }),
-                cell(getF(t.id,'ireal'),               { width:1100, bg:LIGHT_GREEN, center:true, size:16 }),
-                cell(getF(t.id,'treal'),               { width:1100, bg:LIGHT_GREEN, center:true, size:16 }),
-                cell(isDone?'✓':'', { width:600, bg:isDone?'ECFDF5':WHITE, center:true, bold:true, color:isDone?'059669':'94A3B8', size:18 }),
-              ]});
-            })
-          ]
+          ].concat(tasks.map(function(t, i){
+            var isDone = !!(remoteData.tasks && remoteData.tasks[t.id] && remoteData.tasks[t.id].done);
+            var rowBg  = i%2===0 ? WHITE : LIGHT_GRAY;
+            return new D.TableRow({ children:[
+              cell("#"+String(t.id).padStart(2,"0"), {width:360,  bg:rowBg,       center:true,size:16,color:"64748B"}),
+              cell(t.atividade,                      {width:2900, bg:rowBg,        size:17}),
+              cell(getF(t.id,"iprev"),               {width:1100, bg:LIGHT_BLUE,   center:true,size:16}),
+              cell(getF(t.id,"tprev"),               {width:1100, bg:LIGHT_BLUE,   center:true,size:16}),
+              cell(getF(t.id,"ireal"),               {width:1100, bg:LIGHT_GREEN,  center:true,size:16}),
+              cell(getF(t.id,"treal"),               {width:1100, bg:LIGHT_GREEN,  center:true,size:16}),
+              cell(isDone?"✓":"", {width:600, bg:isDone?"ECFDF5":WHITE, center:true,bold:true,color:isDone?"059669":"94A3B8",size:18}),
+            ]});
+          }))
         }),
-        new Paragraph({ children:[new TextRun({ text:'', size:16 })] }),
+        new D.Paragraph({ children:[new D.TextRun({text:"", size:16})] })
       );
     });
 
-    const doc = new Document({
+    var document2 = new D.Document({
       styles:{
-        default:{ document:{ run:{ font:'Arial', size:22 } } },
+        default:{document:{run:{font:"Arial",size:22}}},
         paragraphStyles:[
-          { id:'Heading1', name:'Heading 1', basedOn:'Normal', next:'Normal', quickFormat:true,
-            run:{ size:36, bold:true, font:'Arial', color:NAVY },
-            paragraph:{ spacing:{ before:360, after:200 }, outlineLevel:0 } },
-          { id:'Heading2', name:'Heading 2', basedOn:'Normal', next:'Normal', quickFormat:true,
-            run:{ size:26, bold:true, font:'Arial', color:NAVY },
-            paragraph:{ spacing:{ before:280, after:120 }, outlineLevel:1 } },
+          {id:"Heading1",name:"Heading 1",basedOn:"Normal",next:"Normal",quickFormat:true,
+           run:{size:36,bold:true,font:"Arial",color:NAVY},
+           paragraph:{spacing:{before:360,after:200},outlineLevel:0}},
+          {id:"Heading2",name:"Heading 2",basedOn:"Normal",next:"Normal",quickFormat:true,
+           run:{size:26,bold:true,font:"Arial",color:NAVY},
+           paragraph:{spacing:{before:280,after:120},outlineLevel:1}},
         ]
       },
       sections:[{
-        properties:{
-          page:{ size:{ width:12240, height:15840 }, margin:{ top:1080, right:1080, bottom:1080, left:1080 } }
-        },
-        headers:{
-          default: new Header({ children:[
-            new Paragraph({
-              border:{ bottom:{ style:BorderStyle.SINGLE, size:4, color:TEAL } },
-              children:[
-                new TextRun({ text:'Projeto Navegar  ·  CGE/GO', bold:true, size:18, color:NAVY, font:'Arial' }),
-                new TextRun({ text:`\t${today}`, size:17, color:'64748B', font:'Arial' }),
-              ],
-              tabStops:[{ type:TabStopType.RIGHT, position:TabStopPosition.MAX }]
-            })
-          ]})
-        },
-        footers:{
-          default: new Footer({ children:[
-            new Paragraph({
-              border:{ top:{ style:BorderStyle.SINGLE, size:4, color:MID_GRAY } },
-              children:[
-                new TextRun({ text:'Controladoria-Geral do Estado de Goiás', size:16, color:'94A3B8', font:'Arial' }),
-                new TextRun({ text:'\tPágina ', size:16, color:'94A3B8', font:'Arial' }),
-                new PageNumber(),
-              ],
-              tabStops:[{ type:TabStopType.RIGHT, position:TabStopPosition.MAX }]
-            })
-          ]})
-        },
+        properties:{page:{size:{width:12240,height:15840},margin:{top:1080,right:1080,bottom:1080,left:1080}}},
+        headers:{default:new D.Header({children:[new D.Paragraph({
+          border:{bottom:{style:D.BorderStyle.SINGLE,size:4,color:TEAL}},
+          children:[
+            new D.TextRun({text:"Projeto Navegar  ·  CGE/GO",bold:true,size:18,color:NAVY,font:"Arial"}),
+            new D.TextRun({text:"\t"+today,size:17,color:"64748B",font:"Arial"}),
+          ],
+          tabStops:[{type:D.TabStopType.RIGHT,position:D.TabStopPosition.MAX}]
+        })]})}},
+        footers:{default:new D.Footer({children:[new D.Paragraph({
+          border:{top:{style:D.BorderStyle.SINGLE,size:4,color:"E2E8F0"}},
+          children:[
+            new D.TextRun({text:"Controladoria-Geral do Estado de Goiás",size:16,color:"94A3B8",font:"Arial"}),
+            new D.TextRun({text:"\tPágina ",size:16,color:"94A3B8",font:"Arial"}),
+            new D.PageNumber(),
+          ],
+          tabStops:[{type:D.TabStopType.RIGHT,position:D.TabStopPosition.MAX}]
+        })]})},
         children:[
-          // ── CAPA ──
-          new Paragraph({ children:[new TextRun({ text:'', size:48 })] }),
-          new Paragraph({ alignment:AlignmentType.CENTER, children:[
-            new TextRun({ text:'PROJETO NAVEGAR', size:52, bold:true, color:NAVY, font:'Arial' }),
-          ]}),
-          new Paragraph({ alignment:AlignmentType.CENTER, children:[
-            new TextRun({ text:'Relatório de Acompanhamento', size:28, color:'475569', font:'Arial' }),
-          ]}),
-          new Paragraph({ alignment:AlignmentType.CENTER, children:[
-            new TextRun({ text:today, size:22, color:'94A3B8', font:'Arial' }),
-          ]}),
-          new Paragraph({ children:[new TextRun({ text:'', size:32 })] }),
-
-          // ── BARRA DE PROGRESSO TEXTUAL ──
-          new Table({
-            width:{ size:9360, type:WidthType.DXA },
+          new D.Paragraph({children:[new D.TextRun({text:"",size:48})]}),
+          new D.Paragraph({alignment:D.AlignmentType.CENTER,children:[new D.TextRun({text:"PROJETO NAVEGAR",size:52,bold:true,color:NAVY,font:"Arial"})]}),
+          new D.Paragraph({alignment:D.AlignmentType.CENTER,children:[new D.TextRun({text:"Relatório de Acompanhamento",size:28,color:"475569",font:"Arial"})]}),
+          new D.Paragraph({alignment:D.AlignmentType.CENTER,children:[new D.TextRun({text:today,size:22,color:"94A3B8",font:"Arial"})]}),
+          new D.Paragraph({children:[new D.TextRun({text:"",size:32})]}),
+          new D.Table({
+            width:{size:9360,type:D.WidthType.DXA},
             columnWidths:[2500,1900,1900,1900,1160],
-            rows:[new TableRow({ children:[
-              cell('Progresso Geral',     { width:2500, bg:NAVY,       bold:true, color:WHITE,   size:20 }),
-              cell(`${done} concluídas`,  { width:1900, bg:'1A3A6E',   bold:true, color:WHITE,   center:true, size:20 }),
-              cell(`${total-done} pendentes`,{ width:1900, bg:'374151', color:'D1D5DB', center:true, size:20 }),
-              cell(`${total} total`,      { width:1900, bg:'1F2937',   color:'9CA3AF', center:true, size:20 }),
-              cell(`${pct}%`,             { width:1160, bg:pct>=80?'059669':pct>=50?'0369a1':GOLD, bold:true, color:WHITE, center:true, size:24 }),
+            rows:[new D.TableRow({children:[
+              cell("Progresso Geral",        {width:2500,bg:NAVY,      bold:true,color:WHITE,  size:20}),
+              cell(done+" concluídas",       {width:1900,bg:"1A3A6E",  bold:true,color:WHITE,  center:true,size:20}),
+              cell((total-done)+" pendentes",{width:1900,bg:"374151",  color:"D1D5DB",         center:true,size:20}),
+              cell(total+" total",           {width:1900,bg:"1F2937",  color:"9CA3AF",         center:true,size:20}),
+              cell(pct+"%",                  {width:1160,bg:pct>=80?"059669":pct>=50?"0369a1":"F59E0B",bold:true,color:WHITE,center:true,size:24}),
             ]})]
           }),
-          new Paragraph({ children:[new TextRun({ text:'', size:20 })] }),
-
-          // ── RESUMO POR FASE ──
-          new Paragraph({ heading:HeadingLevel.HEADING_1,
-            children:[new TextRun({ text:'Resumo por Fase', size:36, bold:true, font:'Arial', color:NAVY })] }),
-          new Table({
-            width:{ size:9360, type:WidthType.DXA },
+          new D.Paragraph({children:[new D.TextRun({text:"",size:20})]}),
+          new D.Paragraph({heading:D.HeadingLevel.HEADING_1,children:[new D.TextRun({text:"Resumo por Fase",size:36,bold:true,font:"Arial",color:NAVY})]}),
+          new D.Table({
+            width:{size:9360,type:D.WidthType.DXA},
             columnWidths:[2000,900,900,900,900],
             rows:[
-              new TableRow({ tableHeader:true, children:[
-                cell('Fase',       { width:2000, bg:TEAL,    bold:true, color:WHITE, size:18 }),
-                cell('Total',      { width:900,  bg:TEAL,    bold:true, color:WHITE, center:true, size:18 }),
-                cell('Concluídas', { width:900,  bg:TEAL,    bold:true, color:WHITE, center:true, size:18 }),
-                cell('Pendentes',  { width:900,  bg:TEAL,    bold:true, color:WHITE, center:true, size:18 }),
-                cell('% Conclusão',{ width:900,  bg:TEAL,    bold:true, color:WHITE, center:true, size:18 }),
+              new D.TableRow({tableHeader:true,children:[
+                cell("Fase",        {width:2000,bg:TEAL,bold:true,color:WHITE,size:18}),
+                cell("Total",       {width:900, bg:TEAL,bold:true,color:WHITE,center:true,size:18}),
+                cell("Concluídas",  {width:900, bg:TEAL,bold:true,color:WHITE,center:true,size:18}),
+                cell("Pendentes",   {width:900, bg:TEAL,bold:true,color:WHITE,center:true,size:18}),
+                cell("% Conclusão", {width:900, bg:TEAL,bold:true,color:WHITE,center:true,size:18}),
               ]}),
-              ...phaseRows
-            ]
+            ].concat(phaseRows)
           }),
-          new Paragraph({ children:[new TextRun({ text:'', size:20 })] }),
-
-          // ── PAGE BREAK ──
-          new Paragraph({ children:[new PageBreak()] }),
-
-          // ── DETALHAMENTO POR FASE ──
-          new Paragraph({ heading:HeadingLevel.HEADING_1,
-            children:[new TextRun({ text:'Detalhamento das Atividades', size:36, bold:true, font:'Arial', color:NAVY })] }),
-          ...activityTables,
-        ]
+          new D.Paragraph({children:[new D.TextRun({text:"",size:20})]}),
+          new D.Paragraph({children:[new D.PageBreak()]}),
+          new D.Paragraph({heading:D.HeadingLevel.HEADING_1,children:[new D.TextRun({text:"Detalhamento das Atividades",size:36,bold:true,font:"Arial",color:NAVY})]}),
+        ].concat(activityTables)
       }]
     });
 
-    const buffer = await Packer.toBuffer(doc);
-    const blob   = new Blob([buffer], { type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-    const url    = URL.createObjectURL(blob);
-    const a      = document.createElement('a');
-    a.href       = url;
-    a.download   = `Relatorio_Projeto_Navegar_${new Date().toISOString().slice(0,10)}.docx`;
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('✅ Relatório gerado com sucesso!');
+    D.Packer.toBuffer(document2).then(function(buffer){
+      var blob = new Blob([buffer], {type:"application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement("a");
+      a.href   = url;
+      a.download = "Relatorio_Projeto_Navegar_" + new Date().toISOString().slice(0,10) + ".docx";
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("Relatório gerado!");
+      btn.classList.remove("loading");
+    });
   } catch(e) {
     console.error(e);
-    showToast('❌ Erro ao gerar relatório.');
+    showToast("Erro ao gerar relatório.");
+    btn.classList.remove("loading");
   }
-
-  btn.classList.remove('loading');
-  btn.querySelector('svg').style.animation='';
 });
 
-// ─────────────────────────────────────────
-//  EVENTOS
-// ─────────────────────────────────────────
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>applyFilter(btn.dataset.filter));
-});
-document.getElementById('btn-reset').addEventListener('click', async ()=>{
-  if(!confirm('Resetar todo o progresso e datas?\nIsso afetará todos os usuários.')) return;
-  remoteData = { tasks:{} };
-  scheduleSave(); renderAll();
-  showToast('↺ Checklist resetado');
-});
-
-// ─────────────────────────────────────────
-//  START
-// ─────────────────────────────────────────
 init();
 </script>
 </body>
