@@ -136,7 +136,7 @@ footer strong{color:var(--navy)}
 <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <script>
 var BIN_ID  = "69bab524c3097a1dd537e819";
-var BIN_KEY = "a$10$.cckzTmpS2VzRqFVsV1pRuzuUGF.wbHdo1zbQdWIuFBHNAtW000z2";
+var BIN_KEY = "$2a$10$.cckzTmpS2VzRqFVsV1pRuzuUGF.wbHdo1zbQdWIuFBHNAtW000z2";
 var API     = "https://api.jsonbin.io/v3/b/" + BIN_ID;
 var HDR     = {"Content-Type":"application/json","X-Master-Key":BIN_KEY,"X-Bin-Versioning":"false"};
 
@@ -173,7 +173,7 @@ function renderAll(){
     var tasks=DEFAULTS.filter(function(t){return t.fase===phase;});
     var g=document.createElement("div");g.className="phase-group";g.dataset.phase=phase;
     var h=document.createElement("div");h.className="phase-header";
-    h.innerHTML='<span class="phase-dot '+PDOT[phase]+'"></span><span class="phase-title">'+phase+'</span><span class="phase-count">'+tasks.length+' atividades</span><span class="phase-chevron">&#9660;</span>';
+    h.innerHTML='<span class="phase-dot '+PDOT[phase]+'"></span><span class="phase-title">'+phase+'</span><span class="phase-count">'+tasks.length+' atividades</span><span class="phase-chevron">▼</span>';
     h.addEventListener("click",function(){g.classList.toggle("collapsed");});
     var ch=document.createElement("div");ch.className="col-header";
     ch.innerHTML='<span></span><span></span><span class="col-lbl" style="text-align:left">Atividade</span><span class="col-lbl" style="grid-column:span 2;background:#e0f2fe;color:#0369a1">PREVISTO</span><span class="col-lbl" style="grid-column:span 2;background:#dcfce7;color:#166534">REALIZADO</span>';
